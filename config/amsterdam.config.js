@@ -7,7 +7,8 @@ export default {
             "maxZoom": 21,
             "type": "tms",
             "format": "png",
-            "url": "https://t1.data.amsterdam.nl"
+            "subdomains": ['t1', 't2', 't3', 't4'],
+            "url": "https://{s}.data.amsterdam.nl"
         },
         "layers": [
             {
@@ -30,7 +31,9 @@ export default {
     },
     "wms": {
         "defaults": {
-            "url": "https://map.data.amsterdam.nl/maps",
+            "name": "stadsdeel",
+            "url": "https://map.data.amsterdam.nl/maps/gebieden",
+            "layerName": "stadsdeel",
             "version": "1.1.0",
             "transparent": true,
             "format": "image/png",
@@ -39,10 +42,11 @@ export default {
             "styleName": ""
         },
         "layers": [
-            {
-                "name": "tram",
-                "layerName": "trm",
-                "url": "https://map.data.amsterdam.nl/maps/trm?"
+            {   
+                "name": "stadsdeel",
+                "layerName": "stadsdeel",
+                "url": "https://map.data.amsterdam.nl/maps/gebieden",
+                "version": "1.1.0"
             }
         ]
     },
@@ -61,10 +65,10 @@ export default {
     "map": {
         "style": 'standaard',
         "center": {
-            "latitude": 52.37,
+            "latitude": 52.2,
             "longitude": 4.8952
         },
-        "zoom": 14,
+        "zoom": 11,
         "attribution": true,
         "extent":  [ 52.25168, 4.64034, 52.50536, 5.10737 ],
         "zoomposition": "bottomright"

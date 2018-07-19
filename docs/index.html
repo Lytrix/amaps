@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Testing amaps</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
+    <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
+    <style>
+      #mapdiv{height:600px};
+    </style>
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <!--<p> <a href="pointquery.html">Point Query Example</a></p>
+    <p> <a href="multiselect.html">Multi-feature Select Example</a></p>
+    <div id="queryresults"></div>-->
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="dist/polyfill.min.js"></script>
+    <script src="dist/amaps.iife.js"></script>
+    <script src="https://rawgit.com/tyrasd/osmtogeojson/gh-pages/osmtogeojson.js"></script>
+    <script>
+      let map = amaps.createMap({target: 'mapdiv',
+        layer: 'standaard',
+        marker: false,
+        search: true,
+        zoom: 14
+      });
+
+      let clicks = amaps.clickProvider(map);
+      let singleMarker = amaps.singleMarker(map);
+      clicks.subscribe(singleMarker);
+      const stadsdelen = {
+        url: 'https://map.data.amsterdam.nl/maps/gebieden?',
+        layerName: 'stadsdelen'
+      };
+      const overlay = amaps.leaflet.overlayLayer('stadsdeel', stadsdelen);
+      map.addLayer(overlay);
+
+      let overpassURL = 'https://overpass-api.de/api/interpreter?data=%2F*%0AVrachtroute%20%3E7%2C5%20ton%0A*%2F%0A%0A%5Bout%3Ajson%5D%3B%0A%0A%28%0A%20%20relation%5Broute%3Dtruck%5D%2852.35337677858021%2C4.868316650390625%2C52.39346332646216%2C4.936208724975586%29%3B%0A%20%20%2F%2F%20way%5Bmaxweight%3D120%5D%2852.35337677858021%2C4.868316650390625%2C52.39346332646216%2C4.936208724975586%29%3B%0A%29%3B%0A%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B';
+
+
+      let osmJSON = fetch(overpassURL)
+        .then(res => res.json())
+        .then((result) => {
+          console.log('Checkout this JSON! ', result); 
+          const geojsonTruck = osmtogeojson(result);
+          truck = L.geoJSON(geojsonTruck);
+          map.addLayer(truck);
+        })
+        .catch(err => { throw err });
+      
+
+
+
+      
+    </script>
+  </body>
+</html>
+
+
+
