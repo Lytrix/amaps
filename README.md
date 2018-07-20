@@ -1,21 +1,28 @@
-# amaps
-implementation of nlmaps for Amsterdam
+# Vrachtverkeer route > 7,5 ton Centrum Amsterdam
+implementation of nlmaps and osmtogeojson for Amsterdam
 
-This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
+This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. 
 
-* MORA (meldingen openbare ruimte)
-* TVM (tijdelijke verkeersmaatregelen).
+This implementation is a fork of:
+- https://github.com/webmapper/amaps
+
+And uses this javascript library:
+- https://github.com/tyrasd/osmtogeojson
+
+Which is also used in http://overpass-turbo.eu/s/Aqy
+
+To see the live version:
+
+https://amsterdam.github.io/truck_route_osm_amsterdam_nlmaps
+
 
 see [`src/README.md`](examples/README.md) for explanation on usage. Below is documentation on the build/development setup.
 
 ## How it works
-This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`. In `test/` are html and js files for testing:
+This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`.
+In `docs/` are html and js files:
 
-- `unit-test.js` tests code internally
-- `browser-test.js` tests integration and accessibility in a headless browser
-- `index.html`: tests/demonstrates Amsterdam configuration of `nlmaps`
-- `mora.html`: tests/demonstrates single-click functionality for MORA
-- `tvm.html`: tests/demonstrates multiple feature selection for TVM.
+ `index.html`: is the configuration of `nlmaps` and `osmtogeojson`
 
 
 Versioning
@@ -59,7 +66,7 @@ to build for production, which puts output in `dist/` instead of `test/dist/`, r
 
 `dist/` will contain browser and Ecmascript builds of the Javascript for the `amaps` applications.
 
-To subsequently create a release, create a tag, push it to Github, and annotate the tag so that it shows up on the 'releases' tab.
+copy these files to the docs folder and all is updated.
 
 
 ### with docker (used by Jenkins CI)
